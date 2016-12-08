@@ -33,12 +33,18 @@
 #define VERTICAL_BUFFER         5
 #define FONT_SIZE               14
 
+@interface PhotoCellNode () <ASVideoNodeDelegate>
+
+@end
+
 @implementation PhotoCellNode
 {
   PhotoModel          *_photoModel;
   CommentsNode        *_photoCommentsView;
   ASNetworkImageNode  *_userAvatarImageView;
   ASNetworkImageNode  *_photoImageView;
+  ASVideoNode         *_videoView;
+
   ASTextNode          *_userNameLabel;
   ASTextNode          *_photoLocationLabel;
   ASTextNode          *_photoTimeIntervalSincePostLabel;
@@ -65,9 +71,21 @@
       return [image makeCircularImageWithSize:profileImageSize];
     }];
 
-    _photoImageView          = [[ASNetworkImageNode alloc] init];
-    _photoImageView.URL      = photo.URL;
-    _photoImageView.layerBacked = YES;
+    BOOL video = YES;
+    if (video) {
+      _videoView = [[ASVideoNode alloc] init];
+      _videoView.delegate = self;
+      _videoView.asset = [AVAsset assetWithURL:[NSURL URLWithString:@"https://files.parsetfss.com/8a8a3b0c-619e-4e4d-b1d5-1b5ba9bf2b42/tfss-753fe655-86bb-46da-89b7-aa59c60e49c0-niccage.mp4"]];
+      _videoView.gravity = AVLayerVideoGravityResizeAspectFill;
+      _videoView.backgroundColor = [UIColor clearColor];
+      _videoView.shouldAutorepeat = YES;
+      _videoView.shouldAutoplay = YES;
+      _videoView.muted = YES;
+    } else {
+      _photoImageView          = [[ASNetworkImageNode alloc] init];
+      _photoImageView.URL      = photo.URL;
+      _photoImageView.layerBacked = YES;
+    }
     
     _userNameLabel                  = [[ASTextNode alloc] init];
     _userNameLabel.attributedText   = [photo.ownerUserProfile usernameAttributedStringWithFont:[UIFont systemFontOfSize:FONT_SIZE weight:UIFontWeightMedium]];  
@@ -113,6 +131,8 @@
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize
 {
+  ASNetworkImageNode *contentNode = _videoView != nil ? _videoView : _photoImageView;
+
   return
    // Main stack
    [ASStackLayoutSpec
@@ -178,7 +198,7 @@
       // Center photo with ratio
       [ASRatioLayoutSpec
        ratioLayoutSpecWithRatio:1.0
-       child:_photoImageView],
+       child:contentNode],
       
       // Footer stack with inset
       [ASInsetLayoutSpec
@@ -227,5 +247,46 @@
     [self setNeedsLayout];
   }
 }
+
+#pragma mark - Actions
+
+- (void)didTapVideoNode:(ASVideoNode *)videoNode
+{
+//  if (videoNode == self.guitarVideoNode) {
+//    if (videoNode.playerState == ASVideoNodePlayerStatePlaying) {
+//      [videoNode pause];
+//    } else if(videoNode.playerState == ASVideoNodePlayerStateLoading) {
+//      [videoNode pause];
+//    } else {
+//      [videoNode play];
+//    }
+//    return;
+//  }
+
+  if (videoNode.player.muted == YES) {
+    videoNode.player.muted = NO;
+  } else {
+    videoNode.player.muted = YES;
+  }
+}
+
+#pragma mark - ASVideoNodeDelegate
+
+- (void)videoNode:(ASVideoNode *)videoNode willChangePlayerState:(ASVideoNodePlayerState)state toState:(ASVideoNodePlayerState)toState
+{
+  if (toState == ASVideoNodePlayerStatePlaying) {
+    NSLog(@"guitarVideoNode is playing");
+  } else if (toState == ASVideoNodePlayerStateFinished) {
+    NSLog(@"guitarVideoNode finished");
+  } else if (toState == ASVideoNodePlayerStateLoading) {
+    NSLog(@"guitarVideoNode is buffering");
+  }
+}
+
+- (void)videoNode:(ASVideoNode *)videoNode didPlayToTimeInterval:(NSTimeInterval)timeInterval
+{
+  NSLog(@"guitarVideoNode playback time is: %f",timeInterval);
+}
+
 
 @end
