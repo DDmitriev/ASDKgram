@@ -44,6 +44,7 @@
   ASNetworkImageNode  *_userAvatarImageView;
   ASNetworkImageNode  *_photoImageView;
   ASVideoNode         *_videoView;
+  ASImageNode         *_iconImageView;
 
   ASTextNode          *_userNameLabel;
   ASTextNode          *_photoLocationLabel;
@@ -62,6 +63,9 @@
     
     _photoModel              = photo;
     
+    _iconImageView       = [[ASImageNode alloc] init];
+    _iconImageView.image = [UIImage imageNamed:@"insta_icon"];
+
     _userAvatarImageView     = [[ASNetworkImageNode alloc] init];
     _userAvatarImageView.URL = photo.ownerUserProfile.userPicURL;   // FIXME: make round
     
@@ -182,8 +186,17 @@
              ]]
             styledWithBlock:^(ASLayoutElementStyle *style) {
               style.flexShrink = 1.0;
+            }],
+            // Spacer between user / photo location and insta icon inverval
+            [[ASLayoutSpec new] styledWithBlock:^(ASLayoutElementStyle *style) {
+              style.flexGrow = 1.0;
+            }],
+            // Insta icon interval node
+            [_iconImageView styledWithBlock:^(ASLayoutElementStyle *style) {
+              // to remove double spaces around spacer
+              style.spacingBefore = HORIZONTAL_BUFFER;
             }]
-            ]]
+          ]]
         ],
       
       [ASInsetLayoutSpec
