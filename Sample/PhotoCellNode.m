@@ -29,7 +29,7 @@
 
 #define HEADER_HEIGHT           50
 #define USER_IMAGE_HEIGHT       30
-#define HORIZONTAL_BUFFER       10
+#define HORIZONTAL_BUFFER       12
 #define VERTICAL_BUFFER         5
 #define FONT_SIZE               14
 
@@ -71,7 +71,7 @@
       return [image makeCircularImageWithSize:profileImageSize];
     }];
 
-    BOOL video = YES;
+    BOOL video = NO;
     if (video) {
       _videoView = [[ASVideoNode alloc] init];
       _videoView.delegate = self;
@@ -182,23 +182,18 @@
              ]]
             styledWithBlock:^(ASLayoutElementStyle *style) {
               style.flexShrink = 1.0;
-            }],
-            // Spacer between user / photo location and photo time inverval
-            [[ASLayoutSpec new] styledWithBlock:^(ASLayoutElementStyle *style) {
-              style.flexGrow = 1.0;
-            }],
-            // Photo and time interval node
-            [_photoTimeIntervalSincePostLabel styledWithBlock:^(ASLayoutElementStyle *style) {
-              // to remove double spaces around spacer
-              style.spacingBefore = HORIZONTAL_BUFFER;
             }]
-          ]]
+            ]]
         ],
       
-      // Center photo with ratio
-      [ASRatioLayoutSpec
-       ratioLayoutSpecWithRatio:1.0
-       child:contentNode],
+      [ASInsetLayoutSpec
+       insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, HORIZONTAL_BUFFER, 0, HORIZONTAL_BUFFER)
+       child:
+       // Center photo with ratio
+        [ASRatioLayoutSpec
+          ratioLayoutSpecWithRatio:1.0
+          child:contentNode]
+      ],
       
       // Footer stack with inset
       [ASInsetLayoutSpec
@@ -210,7 +205,22 @@
           justifyContent:ASStackLayoutJustifyContentStart
           alignItems:ASStackLayoutAlignItemsStretch
           children:@[
-            _photoLikesLabel,
+            [ASStackLayoutSpec
+             stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+             spacing:0.0
+             justifyContent:ASStackLayoutJustifyContentStart
+             alignItems:ASStackLayoutAlignItemsCenter
+             children:@[
+                        _photoLikesLabel,
+                        // Spacer between likes and photo time inverval
+                        [[ASLayoutSpec new] styledWithBlock:^(ASLayoutElementStyle *style) {
+                            style.flexGrow = 1.0;
+                        }],
+                        [_photoTimeIntervalSincePostLabel styledWithBlock:^(ASLayoutElementStyle *style) {
+                        // to remove double spaces around spacer
+                            style.spacingBefore = HORIZONTAL_BUFFER;
+                        }]
+                      ]],
             _photoDescriptionLabel,
             _photoCommentsView
           ]]
