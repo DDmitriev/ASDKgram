@@ -434,7 +434,7 @@
 - (void)updateCellWithPhotoObject:(PhotoModel *)photo
 {
   _photoModel                                     = photo;
-  _userNameLabel.attributedText                   = [photo.ownerUserProfile usernameAttributedStringWithFontSize:FONT_SIZE];
+  _userNameLabel.attributedText                   = [photo.ownerUserProfile usernameAttributedStringWithFont:[UIFont systemFontOfSize:FONT_SIZE weight:UIFontWeightMedium]];
   _photoTimeIntervalSincePostLabel.attributedText = [photo uploadDateAttributedStringWithFontSize:FONT_SIZE];
   _photoLikesLabel.attributedText                 = [photo likesAttributedStringWithFontSize:FONT_SIZE];
   _photoDescriptionLabel.attributedText           = [photo descriptionAttributedStringWithFontSize:FONT_SIZE];

@@ -50,8 +50,8 @@
 
 - (NSAttributedString *)commentAttributedString
 {
-  NSString *commentString = [NSString stringWithFormat:@"%@ %@",[_commenterUsername lowercaseString], _body];
-  return [NSAttributedString attributedStringWithString:commentString fontSize:14 color:[UIColor darkGrayColor] firstWordColor:[UIColor darkBlueColor]];
+  NSString *commentString = [NSString stringWithFormat:@"@%@ %@",[_commenterUsername lowercaseString], _body];
+  return [NSAttributedString attributedStringWithString:commentString fontSize:14 color:[UIColor whiteColor] firstWordColor:[[UIColor whiteColor] colorWithAlphaComponent:0.65]];
 }
 
 - (NSAttributedString *)uploadDateAttributedStringWithFontSize:(CGFloat)size;

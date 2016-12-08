@@ -41,8 +41,8 @@
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWith500pxPhoto:(NSDictionary *)dictionary NS_DESIGNATED_INITIALIZER;
 
-- (NSAttributedString *)usernameAttributedStringWithFontSize:(CGFloat)size;
-- (NSAttributedString *)fullNameAttributedStringWithFontSize:(CGFloat)size;
+- (NSAttributedString *)usernameAttributedStringWithFont:(UIFont *)font;
+- (NSAttributedString *)fullNameAttributedStringWithFont:(UIFont *)font;
 
 - (void)fetchAvatarImageWithCompletionBlock:(void(^)(UserModel *, UIImage *))block;
 

@@ -93,7 +93,7 @@
 - (NSAttributedString *)viewAllCommentsAttributedString
 {
   NSString *string               = [NSString stringWithFormat:@"View all %@ comments", [NSNumber numberWithUnsignedInteger:_totalItems]];
-  NSAttributedString *attrString = [NSAttributedString attributedStringWithString:string fontSize:14 color:[UIColor lightGrayColor] firstWordColor:nil];
+  NSAttributedString *attrString = [NSAttributedString attributedStringWithString:string fontSize:14 color:[[UIColor whiteColor] colorWithAlphaComponent:0.5] firstWordColor:nil];
   return attrString;
 }
 

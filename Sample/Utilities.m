@@ -102,14 +102,14 @@ static NSDate *parseRfc3339ToNSDate(NSString *rfc3339DateTimeString)
 
 @implementation UIColor (Additions)
 
-+ (UIColor *)darkBlueColor
++ (UIColor *)orangeColor
 {
-  return [UIColor colorWithRed:70.0/255.0 green:102.0/255.0 blue:118.0/255.0 alpha:1.0];
+  return [UIColor colorWithRed:0.965 green:0.651 blue:0.137 alpha:1.00];
 }
 
-+ (UIColor *)lightBlueColor
++ (UIColor *)darkColor
 {
-  return [UIColor colorWithRed:70.0/255.0 green:165.0/255.0 blue:196.0/255.0 alpha:1.0];
+  return [UIColor colorWithRed:0.184 green:0.196 blue:0.259 alpha:1.00];
 }
 
 @end
@@ -133,12 +133,12 @@ static NSDate *parseRfc3339ToNSDate(NSString *rfc3339DateTimeString)
     [path fill];
     
     path.lineWidth = 3;
-    [[UIColor lightBlueColor] setStroke];
+    [[UIColor lightGrayColor] setStroke];
     [path stroke];
     
   } else {
     
-    [[UIColor lightBlueColor] setFill];
+    [[UIColor lightGrayColor] setFill];
     [path fill];
   }
   
@@ -280,6 +280,29 @@ static NSDate *parseRfc3339ToNSDate(NSString *rfc3339DateTimeString)
 
 @implementation NSAttributedString (Additions)
 
++ (NSAttributedString *)attributedStringWithString:(NSString *)string font:(UIFont *)font
+                                             color:(nullable UIColor *)color firstWordColor:(nullable UIColor *)firstWordColor
+{
+  NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
+  
+  if (string) {
+    NSDictionary *attributes                    = @{NSForegroundColorAttributeName: color ? : [UIColor blackColor],
+                                                    NSFontAttributeName: font};
+    attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+    [attributedString addAttributes:attributes range:NSMakeRange(0, string.length)];
+    
+    if (firstWordColor) {
+      NSRange firstSpaceRange = [string rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
+      NSRange firstWordRange  = NSMakeRange(0, firstSpaceRange.location);
+      [attributedString addAttribute:NSForegroundColorAttributeName value:firstWordColor range:firstWordRange];
+      [attributedString addAttribute:NSFontAttributeName value:font range:firstWordRange];
+      
+    }
+  }
+  
+  return attributedString;
+}
+
 + (NSAttributedString *)attributedStringWithString:(NSString *)string fontSize:(CGFloat)size
                                              color:(nullable UIColor *)color firstWordColor:(nullable UIColor *)firstWordColor
 {
@@ -295,6 +318,8 @@ static NSDate *parseRfc3339ToNSDate(NSString *rfc3339DateTimeString)
       NSRange firstSpaceRange = [string rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
       NSRange firstWordRange  = NSMakeRange(0, firstSpaceRange.location);
       [attributedString addAttribute:NSForegroundColorAttributeName value:firstWordColor range:firstWordRange];
+      [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:size weight:UIFontWeightMedium] range:firstWordRange];
+
     }
   }
   

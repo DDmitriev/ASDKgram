@@ -78,7 +78,7 @@
   
   [self.view addSubview:_activityIndicatorView];
   
-  self.view.backgroundColor = [UIColor whiteColor];
+  self.view.backgroundColor = [UIColor darkColor];
   _tableNode.view.allowsSelection = NO;
   _tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone;
   _tableNode.view.leadingScreensForBatching = AUTO_TAIL_LOADING_NUM_SCREENFULS;  // overriding default of 2.0

@@ -19,8 +19,8 @@
 
 @interface UIColor (Additions)
 
-+ (UIColor *)darkBlueColor;
-+ (UIColor *)lightBlueColor;
++ (UIColor *)orangeColor;
++ (UIColor *)darkColor;
 
 @end
 
@@ -41,6 +41,9 @@
 @end
 
 @interface NSAttributedString (Additions)
+
++ (NSAttributedString *)attributedStringWithString:(NSString *)string font:(UIFont *)font
+                                             color:(nullable UIColor *)color firstWordColor:(nullable UIColor *)firstWordColor;
 
 + (NSAttributedString *)attributedStringWithString:(NSString *)string
                                           fontSize:(CGFloat)size

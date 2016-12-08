@@ -70,7 +70,7 @@
     _photoImageView.layerBacked = YES;
     
     _userNameLabel                  = [[ASTextNode alloc] init];
-    _userNameLabel.attributedText = [photo.ownerUserProfile usernameAttributedStringWithFontSize:FONT_SIZE];
+    _userNameLabel.attributedText   = [photo.ownerUserProfile usernameAttributedStringWithFont:[UIFont systemFontOfSize:FONT_SIZE weight:UIFontWeightMedium]];  
     
     _photoLocationLabel      = [[ASTextNode alloc] init];
     _photoLocationLabel.maximumNumberOfLines = 1;

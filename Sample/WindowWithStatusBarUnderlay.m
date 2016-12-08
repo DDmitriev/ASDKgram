@@ -30,7 +30,7 @@
   self = [super initWithFrame:frame];
   if (self) {
     _statusBarOpaqueUnderlayView                 = [[UIView alloc] init];
-    _statusBarOpaqueUnderlayView.backgroundColor = [UIColor darkBlueColor];
+    _statusBarOpaqueUnderlayView.backgroundColor = [UIColor orangeColor];
     [self addSubview:_statusBarOpaqueUnderlayView];
   }
   return self;

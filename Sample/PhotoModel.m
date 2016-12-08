@@ -71,14 +71,14 @@
   NSString *string               = [NSString stringWithFormat:@"%@ %@", self.ownerUserProfile.username, self.descriptionText];
   NSAttributedString *attrString = [NSAttributedString attributedStringWithString:string
                                                                          fontSize:size
-                                                                            color:[UIColor darkGrayColor]
-                                                                   firstWordColor:[UIColor darkBlueColor]];
+                                                                            color:[UIColor whiteColor]
+                                                                   firstWordColor:[[UIColor orangeColor] colorWithAlphaComponent:0.65]];
   return attrString;
 }
 
 - (NSAttributedString *)uploadDateAttributedStringWithFontSize:(CGFloat)size
 {
-  return [NSAttributedString attributedStringWithString:self.uploadDateString fontSize:size color:[UIColor lightGrayColor] firstWordColor:nil];
+  return [NSAttributedString attributedStringWithString:self.uploadDateString fontSize:size color:[[UIColor whiteColor] colorWithAlphaComponent:0.8] firstWordColor:nil];
 }
 
 - (NSAttributedString *)likesAttributedStringWithFontSize:(CGFloat)size
@@ -89,12 +89,12 @@
   
   NSString *likesString = [NSString stringWithFormat:@"♥︎ %@ likes", formattedLikesNumber];
 
-  return [NSAttributedString attributedStringWithString:likesString fontSize:size color:[UIColor darkBlueColor] firstWordColor:nil];
+  return [NSAttributedString attributedStringWithString:likesString fontSize:size color:[UIColor whiteColor] firstWordColor:nil];
 }
 
 - (NSAttributedString *)locationAttributedStringWithFontSize:(CGFloat)size
 {
-  return [NSAttributedString attributedStringWithString:self.location.locationString fontSize:size color:[UIColor lightBlueColor] firstWordColor:nil];
+  return [NSAttributedString attributedStringWithString:self.location.locationString fontSize:size color:[[UIColor whiteColor] colorWithAlphaComponent:0.5] firstWordColor:nil];
 }
 
 - (NSString *)description

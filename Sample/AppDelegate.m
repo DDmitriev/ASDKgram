@@ -54,7 +54,7 @@
   tabBarController.viewControllers             = @[uikitHomeFeedNavCtrl, asdkHomeFeedNavCtrl];
   tabBarController.selectedViewController      = asdkHomeFeedNavCtrl;
   tabBarController.delegate                    = self;
-  [[UITabBar appearance] setTintColor:[UIColor darkBlueColor]];
+  [[UITabBar appearance] setTintColor:[UIColor orangeColor]];
   
   _window.rootViewController = tabBarController;
   [_window makeKeyAndVisible];
@@ -62,7 +62,7 @@
   // Nav Bar appearance
   NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
   [[UINavigationBar appearance] setTitleTextAttributes:attributes];
-  [[UINavigationBar appearance] setBarTintColor:[UIColor darkBlueColor]];
+  [[UINavigationBar appearance] setBarTintColor:[UIColor orangeColor]];
   [[UINavigationBar appearance] setTranslucent:NO];
   
   // iOS8 hides the status bar in landscape orientation, this forces the status bar hidden status to NO

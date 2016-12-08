@@ -45,14 +45,14 @@
 
 #pragma mark - Instance Methods
 
-- (NSAttributedString *)usernameAttributedStringWithFontSize:(CGFloat)size
+- (NSAttributedString *)usernameAttributedStringWithFont:(UIFont *)font
 {
-  return [NSAttributedString attributedStringWithString:self.username fontSize:size color:[UIColor darkBlueColor] firstWordColor:nil];
+  return [NSAttributedString attributedStringWithString:self.username font:font color:[UIColor whiteColor] firstWordColor:nil];
 }
 
-- (NSAttributedString *)fullNameAttributedStringWithFontSize:(CGFloat)size
+- (NSAttributedString *)fullNameAttributedStringWithFont:(UIFont *)font
 {
-  return [NSAttributedString attributedStringWithString:self.fullName fontSize:size color:[UIColor lightGrayColor] firstWordColor:nil];
+  return [NSAttributedString attributedStringWithString:self.fullName font:font color:[UIColor lightGrayColor] firstWordColor:nil];
 }
 
 - (void)fetchAvatarImageWithCompletionBlock:(void(^)(UserModel *, UIImage *))block
